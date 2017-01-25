@@ -1,0 +1,1 @@
+R2HPCC connector is to provide a comprehensive mechanism to access data from HPCC within R. The connector is going to use SQL as the language of interaction to interact with the HPCC system. This will provide a database centric view of the HPCC system to a R developer
