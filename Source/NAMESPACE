@@ -2,4 +2,5 @@
 
 export(r2hpcc.hpccConnect)
 export(r2hpcc.sqlFetch)
+export(r2hpcc.sqlFetchResults)
 export(r2hpcc.sqlQuery)
