@@ -36,6 +36,11 @@ r2hpcc.sqlQuery(conn,"SELECT * from thor::filename WHERE name='smith'",10) # las
 
 r2hpcc.sqlQuery(conn,"SELECT a.*,b.departmentname from thor::employee a, thor::dept b WHERE a.deptid = b.deptid AND a.deptid = 10")
 
+r2hpcc.sqlFetchResults(conn,"W20170127-151020") #W20170127-151020 - workunit id
+
+r2hpcc.sqlQuery(conn,"call myroxie.r2hpcc_service(10)") # myroxie is the cluster name, r2hpcc_service is the published roxie service name and 10 is parameter to service
+
+
 Results from hpcc
 -----------------
 sqlFetch returns a data frame with all the available columns
