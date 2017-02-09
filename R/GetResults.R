@@ -1,0 +1,87 @@
+#' Calls the executesql function of ws_sql
+#'
+#' Takes in two parameters HPCC SQL statement and HPCC connection object
+#' Returns a data frame.
+#' If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
+#'
+#' @param conn - hpcc connection information
+#' @param includeAll - return all or limited available information
+#' @export 
+r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWindowStart = 0, resultWindowCount = 0)
+{
+  host <- conn[1]
+  targetCluster <- conn[2]
+  userId <- conn[3]
+  password <- conn[4]
+  
+  debugMode <- conn[6]
+  
+  body <- ""
+  body <- paste('<?xml version="1.0" encoding=""?>
+                <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                <GetResultsRequest>
+                <WuId>', workunitId, '</WuId>
+                <SuppressXmlSchema>', suppressXMLSchema, '</SuppressXmlSchema>
+                <ResultWindowStart>', resultWindowStart, '</ResultWindowStart>
+                <ResultWindowCount>', resultWindowCount, '</ResultWindowCount>                
+                </GetResultsRequest>
+                </soap:Body>
+                </soap:Envelope>', sep="")
+  
+  reader = basicTextGatherer()
+  
+  handle = getCurlHandle()
+  
+  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+  
+  url <- ""
+  url <- paste('http://', userId , ':', password , '@', host, ':8510/', sep="")
+  
+  curlPerform(url = url,
+              httpheader = headerFields,
+              postfields = body,
+              writefunction = reader$update,
+              curl = handle)
+  
+  status = getCurlInfo(handle)$response.code
+  varWu1 <- reader$value()
+  txt <- gsub("&lt;", "<", varWu1)
+  txt <- gsub("&gt;", ">", txt)
+  txt <- gsub("&apos;", "'", txt)
+  
+  if(debugMode == TRUE)
+  {
+    print("DEBUG Message <SOAP Response>:")
+    print(txt)
+  }
+  
+  # Check for exception
+  resp <- r2hpcc.Exception(conn, txt)
+
+  # Query Proccessed successfully
+  if (resp == "")
+  {
+    newlst <- xmlParse(txt)
+    layout <- getNodeSet(newlst, "//*[local-name()='GetResultsResponse']",
+                         namespaces = xmlNamespaceDefinitions(newlst, simplify = TRUE))
+    
+    if(debugMode == TRUE)
+    {
+      print("DEBUG Message <GetDBSystemInfoResponse node>:")
+      print(layout)
+    }
+    
+    colLayout <<- layout[[1]]
+    l1 <<- xmlToList(colLayout)
+    
+    if(debugMode == TRUE)
+    {
+      print("DEBUG Message <GetDBSystemInfoResponse node converted to list>:")
+      print(l1)
+    }
+    
+    l2 <- data.frame(Name = l1$Name, FullVersion = l1$FullVersion, Major = l1$Major, Minor = l1$Minor, Point = l1$Point, Project = l1$Project, Maturity = l1$Maturity)
+    l2
+  }
+}
