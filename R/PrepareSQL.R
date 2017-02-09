@@ -5,9 +5,10 @@
 #' If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
 #'
 #' @param conn - hpcc connection information
-#' @param request - echo message
+#' @param sqlQuery - echo message
+#' @param timeOut - Timeout value in milliseconds. Use -1 for no timeout
 #' @export 
-r2hpcc.Echo <- function(conn, request)
+r2hpcc.PrepareSQL <- function(conn, sqlQuery, timeOut = -1)
 {
   host <- conn[1]
   targetCluster <- conn[2]
@@ -20,9 +21,11 @@ r2hpcc.Echo <- function(conn, request)
   body <- paste('<?xml version="1.0" encoding=""?>
                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                 <soap:Body>
-                <EchoRequest>
-                <Request>', request, '</Request>
-                </EchoRequest>
+                <PrepareSQLRequest>
+                <SqlText>', sqlQuery, '</SqlText>
+                <TargetCluster>', targetCluster, '</TargetCluster>
+                <Wait>', timeOut, '</Wait>
+                </PrepareSQLRequest>
                 </soap:Body>
                 </soap:Envelope>', sep="")
 
@@ -46,6 +49,7 @@ r2hpcc.Echo <- function(conn, request)
   txt <- gsub("&lt;", "<", varWu1)
   txt <- gsub("&gt;", ">", txt)
   txt <- gsub("&apos;", "'", txt)
+  txt <- gsub("&quot;", "\"", txt)
 
   if (debugMode == TRUE)
   {
@@ -60,12 +64,12 @@ r2hpcc.Echo <- function(conn, request)
   if (nchar(resp) == 0)
   {
     newlst <- xmlParse(txt)
-    layout <- getNodeSet(newlst, "//*[local-name()='EchoResponse']",
+    layout <- getNodeSet(newlst, "//*[local-name()='Workunit']",
                        namespaces = xmlNamespaceDefinitions(newlst, simplify = TRUE))
 
     if (debugMode == TRUE)
     {
-      print("DEBUG Message <EchoResponse node>:")
+      print("DEBUG Message <Workunit node>:")
       print(layout)
     }
 
@@ -74,11 +78,11 @@ r2hpcc.Echo <- function(conn, request)
     
     if (debugMode == TRUE)
     {
-      print("DEBUG Message <EchoResponse node converted to list>:")
+      print("DEBUG Message <Workunit node converted to list>:")
       print(l1)
     }
     
-    l2 <- data.frame(Response = r2hpcc.NVL(l1$Response))
+    l2 <- data.frame(Wuid = r2hpcc.NVL(l1$Wuid), Owner = r2hpcc.NVL(l1$Owner), Cluster = r2hpcc.NVL(l1$Cluster), Jobname = r2hpcc.NVL(l1$Jobname), StateID = r2hpcc.NVL(l1$StateID), Protected = r2hpcc.NVL(l1$Protected), DateTimeScheduled = r2hpcc.NVL(l1$DateTimeScheduled), Snapshot = r2hpcc.NVL(l1$Snapshot), Query = r2hpcc.NVL(l1$Query))
     l2
   }
 }

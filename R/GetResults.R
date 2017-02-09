@@ -50,7 +50,7 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
   txt <- gsub("&gt;", ">", txt)
   txt <- gsub("&apos;", "'", txt)
   
-  if(debugMode == TRUE)
+  if (debugMode == TRUE)
   {
     print("DEBUG Message <SOAP Response>:")
     print(txt)
@@ -60,13 +60,13 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
   resp <- r2hpcc.Exception(conn, txt)
 
   # Query Proccessed successfully
-  if (resp == "")
+  if (nchar(resp) == 0)
   {
     newlst <- xmlParse(txt)
     layout <- getNodeSet(newlst, "//*[local-name()='GetResultsResponse']",
                          namespaces = xmlNamespaceDefinitions(newlst, simplify = TRUE))
     
-    if(debugMode == TRUE)
+    if (debugMode == TRUE)
     {
       print("DEBUG Message <GetDBSystemInfoResponse node>:")
       print(layout)
@@ -75,13 +75,13 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
     colLayout <<- layout[[1]]
     l1 <<- xmlToList(colLayout)
     
-    if(debugMode == TRUE)
+    if (debugMode == TRUE)
     {
       print("DEBUG Message <GetDBSystemInfoResponse node converted to list>:")
       print(l1)
     }
     
-    l2 <- data.frame(Name = l1$Name, FullVersion = l1$FullVersion, Major = l1$Major, Minor = l1$Minor, Point = l1$Point, Project = l1$Project, Maturity = l1$Maturity)
+    l2 <- data.frame(Name = r2hpcc.NVL(l1$Name), FullVersion = r2hpcc.NVL(l1$FullVersion), Major = r2hpcc.NVL(l1$Major), Minor = r2hpcc.NVL(l1$Minor), Point = r2hpcc.NVL(l1$Point), Project = r2hpcc.NVL(l1$Project), Maturity = r2hpcc.NVL(l1$Maturity))
     l2
   }
 }

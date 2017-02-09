@@ -14,13 +14,13 @@ r2hpcc.sqlFetch <- function (Con, filename,limit) {
   targetCluster <- Con[2]
   userId <- Con[3]
   password <- Con[4]
-  resultLimit <- if(missing(limit)) {Con[5]} else {limit}
+  resultLimit <- if (missing(limit)) {Con[5]} else {limit}
   
   query <- paste('SELECT * FROM ',filename,sep='')
 
   body <- ""
 
-  body  <- paste('<?xml version="1.0" encoding=""?>
+  body <- paste('<?xml version="1.0" encoding=""?>
                  <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                  <soap:Body>
                  <ExecuteSQLRequest>

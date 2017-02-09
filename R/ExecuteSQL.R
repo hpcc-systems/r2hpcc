@@ -14,7 +14,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
   targetCluster <- conn[2]
   userId <- conn[3]
   password <- conn[4]
-  resultLimit <- if(missing(limit)) {conn[5]} else {limit}
+  resultLimit <- if (missing(limit)) {conn[5]} else {limit}
   debugMode <- conn[6]
 
   body <- ""
@@ -59,7 +59,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
   txt <- gsub("&gt;", ">", txt)
   txt <- gsub("&apos;", "'", txt)
   
-  if(debugMode == TRUE)
+  if (debugMode == TRUE)
   {
     print("DEBUG Message <SOAP Response>:")
     print(txt)
@@ -69,13 +69,13 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
   resp <- r2hpcc.Exception(conn, txt)
   
   # Query Proccessed successfully
-  if (resp == "")
+  if (nchar(resp) == 0)
   {
     newlst <- xmlParse(txt)
     layout <- getNodeSet(newlst, "//*[local-name()='Result']",
                          namespaces = xmlNamespaceDefinitions(newlst, simplify = TRUE))
     
-    if(debugMode == TRUE)
+    if (debugMode == TRUE)
     {
       print("DEBUG Message <Result node>:")
       print(layout)
@@ -84,7 +84,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
     colLayout <<- layout[[1]]
     l1 <<- xmlToList(colLayout)
 
-    if(debugMode == TRUE)
+    if (debugMode == TRUE)
     {
       print("DEBUG Message <Result node converted to list>:")
       print(l1)
@@ -96,7 +96,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
     # Remove the attrib element from the list (drop element from index marked with -) 
     l1 <- l1[1]$Dataset[-length(l1[1]$Dataset)]
     
-    if(debugMode == TRUE)
+    if (debugMode == TRUE)
     {
       print("l1:")
       print(l1)
