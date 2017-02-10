@@ -58,6 +58,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
   txt <- gsub("&lt;", "<", varWu1)
   txt <- gsub("&gt;", ">", txt)
   txt <- gsub("&apos;", "'", txt)
+  txt <- gsub("&quot;", "\"", txt)
   
   if (debugMode == TRUE)
   {

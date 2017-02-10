@@ -1,13 +1,11 @@
-#' Calls the executesql function of ws_sql
+#' This method allows you to get HPCC System version information.
 #'
-#' Takes in two parameters HPCC SQL statement and HPCC connection object
-#' Returns a data frame.
-#' If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
+#' @param conn - HPCC connection information
+#' @param includeAll - If set to 1 or true, all available information is returned
 #'
-#' @param conn - hpcc connection information
-#' @param includeAll - return all or limited available information
-#' @export 
-r2hpcc.GetDBSystemInfo <- function(conn, includeAll)
+#' @return HPCC System version information
+#' @export
+r2hpcc.GetDBSystemInfo <- function(conn, includeAll = 1)
 {
   host <- conn[1]
   targetCluster <- conn[2]
@@ -46,6 +44,7 @@ r2hpcc.GetDBSystemInfo <- function(conn, includeAll)
   txt <- gsub("&lt;", "<", varWu1)
   txt <- gsub("&gt;", ">", txt)
   txt <- gsub("&apos;", "'", txt)
+  txt <- gsub("&quot;", "\"", txt)
   
   if (debugMode == TRUE)
   {

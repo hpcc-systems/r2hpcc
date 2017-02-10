@@ -2,17 +2,18 @@
 % Please edit documentation in R/GetDBSystemInfo.R
 \name{r2hpcc.GetDBSystemInfo}
 \alias{r2hpcc.GetDBSystemInfo}
-\title{Calls the executesql function of ws_sql}
+\title{This method allows you to get HPCC System version information.}
 \usage{
-r2hpcc.GetDBSystemInfo(conn, includeAll)
+r2hpcc.GetDBSystemInfo(conn, includeAll = 1)
 }
 \arguments{
-\item{conn}{- hpcc connection information}
+\item{conn}{- HPCC connection information}
 
-\item{includeAll}{- return all or limited available information}
+\item{includeAll}{- If set to 1 or true, all available information is returned}
+}
+\value{
+HPCC System version information
 }
 \description{
-Takes in two parameters HPCC SQL statement and HPCC connection object
-Returns a data frame.
-If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
+This method allows you to get HPCC System version information.
 }

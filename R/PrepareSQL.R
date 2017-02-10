@@ -1,13 +1,13 @@
-#' Calls the executesql function of ws_sql
+#' Use this method to submit a free-hand SQL request for later use as a parameterized query.
+#' This compiles the query and returns the Wuid.
+#' This Wuid is later used to execute the query with provided input parameters using the ExecutePreparedSQL method.
 #'
-#' Takes in two parameters HPCC SQL statement and HPCC connection object
-#' Returns a data frame.
-#' If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
-#'
-#' @param conn - hpcc connection information
-#' @param sqlQuery - echo message
+#' @param conn - HPCC connection information
+#' @param sqlQuery - Free-hand SQL text
 #' @param timeOut - Timeout value in milliseconds. Use -1 for no timeout
-#' @export 
+#'
+#' @return Workunit details
+#' @export
 r2hpcc.PrepareSQL <- function(conn, sqlQuery, timeOut = -1)
 {
   host <- conn[1]

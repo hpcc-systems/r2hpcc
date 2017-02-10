@@ -1,13 +1,13 @@
-#' Calls the executesql function of ws_sql
+#' This function takes an input string and "echoes" the value in its result.
+#' This function is intended for end-to-end connectivity testing.
+#' A successful response indicates a good connection to the server hosting the Ws-SQL Web service.
 #'
-#' Takes in two parameters HPCC SQL statement and HPCC connection object
-#' Returns a data frame.
-#' If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
+#' @param conn - HPCC connection information
+#' @param request - String to echo in result
 #'
-#' @param conn - hpcc connection information
-#' @param request - echo message
-#' @export 
-r2hpcc.Echo <- function(conn, request)
+#' @return - Echo string passed in
+#' @export
+r2hpcc.Echo <- function(conn, echo)
 {
   host <- conn[1]
   targetCluster <- conn[2]
@@ -21,7 +21,7 @@ r2hpcc.Echo <- function(conn, request)
                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                 <soap:Body>
                 <EchoRequest>
-                <Request>', request, '</Request>
+                <Request>', echo, '</Request>
                 </EchoRequest>
                 </soap:Body>
                 </soap:Envelope>', sep="")
@@ -46,6 +46,7 @@ r2hpcc.Echo <- function(conn, request)
   txt <- gsub("&lt;", "<", varWu1)
   txt <- gsub("&gt;", ">", txt)
   txt <- gsub("&apos;", "'", txt)
+  txt <- gsub("&quot;", "\"", txt)
 
   if (debugMode == TRUE)
   {

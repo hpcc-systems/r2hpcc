@@ -2,17 +2,22 @@
 % Please edit documentation in R/Echo.R
 \name{r2hpcc.Echo}
 \alias{r2hpcc.Echo}
-\title{Calls the executesql function of ws_sql}
+\title{This function takes an input string and "echoes" the value in its result.
+This function is intended for end-to-end connectivity testing.
+A successful response indicates a good connection to the server hosting the Ws-SQL Web service.}
 \usage{
-r2hpcc.Echo(conn, request)
+r2hpcc.Echo(conn, echo)
 }
 \arguments{
-\item{conn}{- hpcc connection information}
+\item{conn}{- HPCC connection information}
 
-\item{request}{- echo message}
+\item{request}{- String to echo in result}
+}
+\value{
+- Echo string passed in
 }
 \description{
-Takes in two parameters HPCC SQL statement and HPCC connection object
-Returns a data frame.
-If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
+This function takes an input string and "echoes" the value in its result.
+This function is intended for end-to-end connectivity testing.
+A successful response indicates a good connection to the server hosting the Ws-SQL Web service.
 }

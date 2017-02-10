@@ -2,19 +2,24 @@
 % Please edit documentation in R/PrepareSQL.R
 \name{r2hpcc.PrepareSQL}
 \alias{r2hpcc.PrepareSQL}
-\title{Calls the executesql function of ws_sql}
+\title{Use this method to submit a free-hand SQL request for later use as a parameterized query.
+This compiles the query and returns the Wuid.
+This Wuid is later used to execute the query with provided input parameters using the ExecutePreparedSQL method.}
 \usage{
 r2hpcc.PrepareSQL(conn, sqlQuery, timeOut = -1)
 }
 \arguments{
-\item{conn}{- hpcc connection information}
+\item{conn}{- HPCC connection information}
 
-\item{sqlQuery}{- echo message}
+\item{sqlQuery}{- Free-hand SQL text}
 
 \item{timeOut}{- Timeout value in milliseconds. Use -1 for no timeout}
 }
+\value{
+Workunit details
+}
 \description{
-Takes in two parameters HPCC SQL statement and HPCC connection object
-Returns a data frame.
-If the function eencountered any error while executing the query, 2nd element will have a value of -1 and 1st element, the error message.
+Use this method to submit a free-hand SQL request for later use as a parameterized query.
+This compiles the query and returns the Wuid.
+This Wuid is later used to execute the query with provided input parameters using the ExecutePreparedSQL method.
 }
