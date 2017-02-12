@@ -1,52 +1,72 @@
-#' This method allows you to get results from previously executed queries.
-#' Use the Wuid returned from ExecuteSQL or PrepareSQL.
-#' This method is ideal for results paging
+#' This method executes a previously created parameterized SQL query.
 #'
 #' @param conn - HPCC connection information
-#' @param workunitId - Workunit Id (WUID)
+#' @param workunitId - The Workunit ID (WUID)
+#' @param variables - list of pairs(name, value) to replace placeholders in prepared SQL
+#' @param supressResults - If  set  to  1  or  true,  query  results  are  not  included  in  response
 #' @param suppressXMLSchema - If set to 1 or true, the query result schema is not included in response
+#' @param timeout - Timeout value in milliseconds. Use -1 for no timeout
 #' @param resultWindowStart - For use with page-loading, the starting record to return
 #' @param resultWindowCount - For use with page-loading, the number of records to include from the ResultWindowStart
 #'
 #' @return Workunit result
 #' @export
-r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWindowStart = 0, resultWindowCount = 0)
+r2hpcc.ExecutePreparedSQL <- function(conn, workunitId, variables = NULL, supressResults = 0, suppressXMLSchema = 1, timeout = -1, resultWindowStart = 0, resultWindowCount = 0)
 {
   host <- conn[1]
   targetCluster <- conn[2]
   userId <- conn[3]
   password <- conn[4]
-  
+
   debugMode <- conn[6]
-  
+
   body <- ""
   body <- paste('<?xml version="1.0" encoding=""?>
-                <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-                <soap:Body>
-                <GetResultsRequest>
-                <WuId>', workunitId, '</WuId>
-                <SuppressXmlSchema>', suppressXMLSchema, '</SuppressXmlSchema>
-                <ResultWindowStart>', resultWindowStart, '</ResultWindowStart>
-                <ResultWindowCount>', resultWindowCount, '</ResultWindowCount>                
-                </GetResultsRequest>
-                </soap:Body>
-                </soap:Envelope>', sep="")
+                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                 <soap:Body>
+                 <ExecutePreparedSQLRequest>
+                 <WuId>', workunitId, '</WuId>
+                 <UserName>', userId, '</UserName>
+                 <TargetCluster>', targetCluster, '</TargetCluster>
+                 <SuppressResults>', supressResults, '</SuppressResults>
+                 <SuppressXmlSchema>', suppressXMLSchema, '</SuppressXmlSchema>
+                 <Wait>', timeout, '</Wait>
+                 <ResultWindowStart>', resultWindowStart, '</ResultWindowStart>
+                 <ResultWindowCount>', resultWindowCount, '</ResultWindowCount>', sep="")
   
+  if (!is.null(variables) & length(variables) > 0)
+  {
+    body <- paste(body, '<Variables>', sep="")
+    for (name in names(variables))
+    {
+      body <- paste(body, '<NamedValue>
+                          <Name>', name, '</Name>
+                          <Value>', variables[[name]], '</Value>
+                          </NamedValue>', sep="")
+    }
+    body <- paste(body, '</Variables>', sep="")
+  }
+
+  body <- paste(body, '</ExecutePreparedSQLRequest>
+                 </soap:Body>
+                 </soap:Envelope>', sep="")
+
   reader = basicTextGatherer()
-  
+
   handle = getCurlHandle()
-  
-  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
-  
+
+  headerFields = c(Accept = "text/xml", Accept = "multipart/*",
+                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+
   url <- ""
-  url <- paste('http://', userId , ':', password , '@', host, ':8510/', sep="")
-  
+  url <- paste('http://', userId , ':', password , '@', host, ':8510/',  sep="")
+
   curlPerform(url = url,
               httpheader = headerFields,
               postfields = body,
               writefunction = reader$update,
               curl = handle)
-  
+
   status = getCurlInfo(handle)$response.code
   varWu1 <- reader$value()
   txt <- gsub("&lt;", "<", varWu1)
@@ -78,13 +98,16 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
     
     colLayout <<- layout[[1]]
     l1 <<- xmlToList(colLayout)
-    
+
     if (debugMode == TRUE)
     {
       print("DEBUG Message <Result node converted to list>:")
       print(l1)
     }
     
+    #get the row count
+    rCount <- l1[2]$Dataset$Row$WSSQLSelectQueryResultCount
+
     # Remove the attrib element from the list (drop element from index marked with -) 
     l1 <- l1[1]$Dataset[-length(l1[1]$Dataset)]
     
@@ -101,19 +124,20 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
 }
 
 
-#' This method allows you to get results from previously executed queries.
-#' Use the Wuid returned from ExecuteSQL or PrepareSQL.
-#' This method is ideal for results paging
+#' This method executes a previously created parameterized SQL query.
 #'
 #' @param conn - HPCC connection information
-#' @param workunitId - Workunit Id (WUID)
+#' @param workunitId - The Workunit ID (WUID)
+#' @param variables - list of pairs(name, value) to replace placeholders in prepared SQL
+#' @param supressResults - If  set  to  1  or  true,  query  results  are  not  included  in  response
 #' @param suppressXMLSchema - If set to 1 or true, the query result schema is not included in response
+#' @param timeout - Timeout value in milliseconds. Use -1 for no timeout
 #' @param resultWindowStart - For use with page-loading, the starting record to return
 #' @param resultWindowCount - For use with page-loading, the number of records to include from the ResultWindowStart
 #'
 #' @return Workunit details
 #' @export
-r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWindowStart = 0, resultWindowCount = 0)
+r2hpcc.ExecutePreparedSQL2 <- function(conn, workunitId, variables = NULL, supressResults = 0, suppressXMLSchema = 1, timeout = -1, resultWindowStart = 0, resultWindowCount = 0)
 {
   host <- conn[1]
   targetCluster <- conn[2]
@@ -126,12 +150,30 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
   body <- paste('<?xml version="1.0" encoding=""?>
                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                 <soap:Body>
-                <GetResultsRequest>
+                <ExecutePreparedSQLRequest>
                 <WuId>', workunitId, '</WuId>
+                <UserName>', userId, '</UserName>
+                <TargetCluster>', targetCluster, '</TargetCluster>
+                <SuppressResults>', supressResults, '</SuppressResults>
                 <SuppressXmlSchema>', suppressXMLSchema, '</SuppressXmlSchema>
+                <Wait>', timeout, '</Wait>
                 <ResultWindowStart>', resultWindowStart, '</ResultWindowStart>
-                <ResultWindowCount>', resultWindowCount, '</ResultWindowCount>                
-                </GetResultsRequest>
+                <ResultWindowCount>', resultWindowCount, '</ResultWindowCount>', sep="")
+  
+  if (!is.null(variables) & length(variables) > 0)
+  {
+    body <- paste(body, '<Variables>', sep="")
+    for (name in names(variables))
+    {
+      body <- paste(body, '<NamedValue>
+                    <Name>', name, '</Name>
+                    <Value>', variables[[name]], '</Value>
+                    </NamedValue>', sep="")
+    }
+    body <- paste(body, '</Variables>', sep="")
+    }
+  
+  body <- paste(body, '</ExecutePreparedSQLRequest>
                 </soap:Body>
                 </soap:Envelope>', sep="")
   
@@ -139,10 +181,11 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
   
   handle = getCurlHandle()
   
-  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+  headerFields = c(Accept = "text/xml", Accept = "multipart/*",
+                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
   
   url <- ""
-  url <- paste('http://', userId , ':', password , '@', host, ':8510/', sep="")
+  url <- paste('http://', userId , ':', password , '@', host, ':8510/',  sep="")
   
   curlPerform(url = url,
               httpheader = headerFields,
@@ -165,7 +208,7 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
   
   # Check for exception
   resp <- r2hpcc.Exception(conn, txt)
-
+  
   # Query Proccessed successfully
   if (nchar(resp) == 0)
   {
@@ -177,6 +220,15 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
     {
       print("DEBUG Message <Workunit node>:")
       print(layout)
+    }
+    
+    colLayout <<- layout[[1]]
+    l1 <<- xmlToList(colLayout)
+    
+    if (debugMode == TRUE)
+    {
+      print("DEBUG Message <Workunit node converted to list>:")
+      print(l1)
     }
     
     colLayout <<- layout[[1]]

@@ -21,7 +21,7 @@ r2hpcc.GetResults2(conn, workunitId, suppressXMLSchema = 1,
 \item{resultWindowCount}{- For use with page-loading, the number of records to include from the ResultWindowStart}
 }
 \value{
-Workunit result
+Workunit details
 }
 \description{
 This method allows you to get results from previously executed queries.

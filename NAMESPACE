@@ -2,6 +2,8 @@
 
 export(r2hpcc.Connect)
 export(r2hpcc.Echo)
+export(r2hpcc.ExecutePreparedSQL)
+export(r2hpcc.ExecutePreparedSQL2)
 export(r2hpcc.ExecuteSQL)
 export(r2hpcc.GetDBSystemInfo)
 export(r2hpcc.GetResults)
