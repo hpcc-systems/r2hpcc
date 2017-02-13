@@ -18,7 +18,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
   debugMode <- conn[6]
 
   body <- ""
-  body <- paste('<?xml version="1.0" encoding=""?>
+  body <- paste('<?xml version="1.0" encoding="utf-8"?>
                  <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                  <soap:Body>
                  <ExecuteSQLRequest>
@@ -41,8 +41,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
 
   handle = getCurlHandle()
 
-  headerFields = c(Accept = "text/xml", Accept = "multipart/*",
-                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "wssql/ExecuteSQL?ver_=3.05")
 
   url <- ""
   url <- paste('http://', userId , ':', password , '@', host, ':8510/',  sep="")
@@ -107,4 +106,6 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
     row.names(df) <- NULL
     df
   }
+  else
+    resp
 }

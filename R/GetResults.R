@@ -20,7 +20,7 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
   debugMode <- conn[6]
   
   body <- ""
-  body <- paste('<?xml version="1.0" encoding=""?>
+  body <- paste('<?xml version="1.0" encoding="utf-8"?>
                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                 <soap:Body>
                 <GetResultsRequest>
@@ -36,7 +36,7 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
   
   handle = getCurlHandle()
   
-  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "wssql/GetResults?ver_=3.05")
   
   url <- ""
   url <- paste('http://', userId , ':', password , '@', host, ':8510/', sep="")
@@ -98,6 +98,8 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
     row.names(df) <- NULL
     df
   }
+  else
+    resp
 }
 
 
@@ -123,7 +125,7 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
   debugMode <- conn[6]
   
   body <- ""
-  body <- paste('<?xml version="1.0" encoding=""?>
+  body <- paste('<?xml version="1.0" encoding="utf-8"?>
                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                 <soap:Body>
                 <GetResultsRequest>
@@ -139,7 +141,7 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
   
   handle = getCurlHandle()
   
-  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+  headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = "wssql/GetResults?ver_=3.05")
   
   url <- ""
   url <- paste('http://', userId , ':', password , '@', host, ':8510/', sep="")
@@ -191,4 +193,6 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
     l2 <- data.frame(Wuid = r2hpcc.NVL(l1$Wuid), Owner = r2hpcc.NVL(l1$Owner), Cluster = r2hpcc.NVL(l1$Cluster), Jobname = r2hpcc.NVL(l1$Jobname), StateID = r2hpcc.NVL(l1$StateID), Protected = r2hpcc.NVL(l1$Protected), DateTimeScheduled = r2hpcc.NVL(l1$DateTimeScheduled), Snapshot = r2hpcc.NVL(l1$Snapshot), Query = r2hpcc.NVL(l1$Query))
     l2
   }
+  else
+    resp
 }

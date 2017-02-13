@@ -2,7 +2,7 @@
 #'
 #' @param conn - HPCC connection information
 #' @param workunitId - The Workunit ID (WUID)
-#' @param variables - list of pairs(name, value) to replace placeholders in prepared SQL
+#' @param variables - List of pairs(name, value) to replace placeholders in prepared SQL
 #' @param supressResults - If  set  to  1  or  true,  query  results  are  not  included  in  response
 #' @param suppressXMLSchema - If set to 1 or true, the query result schema is not included in response
 #' @param timeout - Timeout value in milliseconds. Use -1 for no timeout
@@ -21,7 +21,7 @@ r2hpcc.ExecutePreparedSQL <- function(conn, workunitId, variables = NULL, supres
   debugMode <- conn[6]
 
   body <- ""
-  body <- paste('<?xml version="1.0" encoding=""?>
+  body <- paste('<?xml version="1.0" encoding="utf-8"?>
                  <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                  <soap:Body>
                  <ExecutePreparedSQLRequest>
@@ -56,7 +56,7 @@ r2hpcc.ExecutePreparedSQL <- function(conn, workunitId, variables = NULL, supres
   handle = getCurlHandle()
 
   headerFields = c(Accept = "text/xml", Accept = "multipart/*",
-                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "wssql/ExecutePreparedSQL?ver_=3.05")
 
   url <- ""
   url <- paste('http://', userId , ':', password , '@', host, ':8510/',  sep="")
@@ -121,6 +121,8 @@ r2hpcc.ExecutePreparedSQL <- function(conn, workunitId, variables = NULL, supres
     row.names(df) <- NULL
     df
   }
+  else
+    resp
 }
 
 
@@ -128,7 +130,7 @@ r2hpcc.ExecutePreparedSQL <- function(conn, workunitId, variables = NULL, supres
 #'
 #' @param conn - HPCC connection information
 #' @param workunitId - The Workunit ID (WUID)
-#' @param variables - list of pairs(name, value) to replace placeholders in prepared SQL
+#' @param variables - List of pairs(name, value) to replace placeholders in prepared SQL
 #' @param supressResults - If  set  to  1  or  true,  query  results  are  not  included  in  response
 #' @param suppressXMLSchema - If set to 1 or true, the query result schema is not included in response
 #' @param timeout - Timeout value in milliseconds. Use -1 for no timeout
@@ -147,7 +149,7 @@ r2hpcc.ExecutePreparedSQL2 <- function(conn, workunitId, variables = NULL, supre
   debugMode <- conn[6]
   
   body <- ""
-  body <- paste('<?xml version="1.0" encoding=""?>
+  body <- paste('<?xml version="1.0" encoding="utf-8"?>
                 <soap:Envelope xmlns="urn:hpccsystems:ws:wssql" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                 <soap:Body>
                 <ExecutePreparedSQLRequest>
@@ -182,7 +184,7 @@ r2hpcc.ExecutePreparedSQL2 <- function(conn, workunitId, variables = NULL, supre
   handle = getCurlHandle()
   
   headerFields = c(Accept = "text/xml", Accept = "multipart/*",
-                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "urn:hpccsystems:ws:WsSQL")
+                   `Content-Type` = "text/xml; charset=utf-8", SOAPAction = "wssql/ExecutePreparedSQL?ver_=3.05")
   
   url <- ""
   url <- paste('http://', userId , ':', password , '@', host, ':8510/',  sep="")
@@ -243,4 +245,6 @@ r2hpcc.ExecutePreparedSQL2 <- function(conn, workunitId, variables = NULL, supre
     l2 <- data.frame(Wuid = r2hpcc.NVL(l1$Wuid), Owner = r2hpcc.NVL(l1$Owner), Cluster = r2hpcc.NVL(l1$Cluster), Jobname = r2hpcc.NVL(l1$Jobname), StateID = r2hpcc.NVL(l1$StateID), Protected = r2hpcc.NVL(l1$Protected), DateTimeScheduled = r2hpcc.NVL(l1$DateTimeScheduled), Snapshot = r2hpcc.NVL(l1$Snapshot), Query = r2hpcc.NVL(l1$Query))
     l2
   }
+  else
+    resp
 }

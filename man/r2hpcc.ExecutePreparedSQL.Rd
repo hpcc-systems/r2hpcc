@@ -13,7 +13,7 @@ r2hpcc.ExecutePreparedSQL(conn, workunitId, variables = NULL,
 
 \item{workunitId}{- The Workunit ID (WUID)}
 
-\item{variables}{- list of pairs(name, value) to replace placeholders in prepared SQL}
+\item{variables}{- List of pairs(name, value) to replace placeholders in prepared SQL}
 
 \item{supressResults}{- If  set  to  1  or  true,  query  results  are  not  included  in  response}
 
