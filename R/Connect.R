@@ -13,7 +13,7 @@ r2hpcc.Connect <- function(host, targetCluster, userId, password, resultLimit, d
 {
 	suppressMessages(library(RCurl))
 	suppressMessages(library(XML))
-	hpccPassword <- password  
+	hpccPassword <- password
 	hpccPassword <- gsub("\\!", "%21", hpccPassword)
 	hpccPassword <- gsub("\\#", "%23", hpccPassword)
 	hpccPassword <- gsub("\\$", "%24", hpccPassword)

@@ -15,7 +15,7 @@ r2hpcc.ExecutePreparedSQL2(conn, workunitId, variables = NULL,
 
 \item{variables}{- List of pairs(name, value) to replace placeholders in prepared SQL}
 
-\item{supressResults}{- If  set  to  1  or  true,  query  results  are  not  included  in  response}
+\item{supressResults}{- If set to 1 or true, query results are not included in response}
 
 \item{suppressXMLSchema}{- If set to 1 or true, the query result schema is not included in response}
 

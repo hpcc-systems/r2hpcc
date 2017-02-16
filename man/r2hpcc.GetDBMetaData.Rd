@@ -12,7 +12,7 @@ r2hpcc.GetDBMetaData(conn, includeTables = 1, tableFilter = "",
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{includeTables}{- If  set  to  1  or  true,  available  tables  are  included  in  response}
+\item{includeTables}{- If set to 1 or true, available tables are included in response}
 
 \item{tableFilter}{- Filter for table results}
 
