@@ -20,16 +20,16 @@ r2hpcc.HTTPRequest <- function(host, userId, password, action, body)
 	
 	handle = getCurlHandle()
 
-	headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = paste("wssql/", action, "?ver_=3.05"))
+	headerFields = c(Accept = "text/xml", Accept = "multipart/*", 'Content-Type' = "text/xml; charset=utf-8", SOAPAction = paste("wssql/", action, "?ver_=3.05", sep=""))
 
 	url <- ""
 	url <- paste('http://', userId , ':', password , '@', host, ':8510/', sep="")
 
 	curlPerform(url = url,
-							httpheader = headerFields,
-							postfields = body,
-							writefunction = reader$update,
-							curl = handle)
+				httpheader = headerFields,
+				postfields = body,
+				writefunction = reader$update,
+				curl = handle)
 
 	status = getCurlInfo(handle)$response.code
 	varWu1 <- reader$value()
