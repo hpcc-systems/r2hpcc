@@ -2,18 +2,18 @@
 % Please edit documentation in R/DFUArrayAction.R
 \name{r2hpcc.DeleteLogicalFiles}
 \alias{r2hpcc.DeleteLogicalFiles}
-\title{Title}
+\title{This function deletes a list of logical files}
 \usage{
 r2hpcc.DeleteLogicalFiles(conn, logicalFiles)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{workunits}{- list of workunits to delete}
+\item{logicalFiles}{- list of logical files}
 }
 \value{
 - status of processed operation
 }
 \description{
-Title
+This function deletes a list of logical files
 }

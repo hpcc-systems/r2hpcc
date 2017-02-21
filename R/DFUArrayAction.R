@@ -1,7 +1,7 @@
-#' Title
+#' This function deletes a list of logical files
 #'
 #' @param conn - HPCC connection information
-#' @param workunits - list of workunits to delete
+#' @param logicalFiles - list of logical files
 #'
 #' @return - status of processed operation
 #' @export
@@ -12,11 +12,11 @@ r2hpcc.DeleteLogicalFiles <- function(conn, logicalFiles)
 }
 
 
-#' This function performs an action on a list of workunits
+#' This function performs an action on a list of logical files
 #'
 #' @param conn - HPCC connection information
 #' @param action - action
-#' @param workunits - list of workunits to perform an action
+#' @param logicalFiles - list of logical files
 #'
 #' @return - status of processed operation
 r2hpcc.DFUArrayAction <- function(conn, action, logicalFiles)

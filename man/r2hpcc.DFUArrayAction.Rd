@@ -2,7 +2,7 @@
 % Please edit documentation in R/DFUArrayAction.R
 \name{r2hpcc.DFUArrayAction}
 \alias{r2hpcc.DFUArrayAction}
-\title{This function performs an action on a list of workunits}
+\title{This function performs an action on a list of logical files}
 \usage{
 r2hpcc.DFUArrayAction(conn, action, logicalFiles)
 }
@@ -11,11 +11,11 @@ r2hpcc.DFUArrayAction(conn, action, logicalFiles)
 
 \item{action}{- action}
 
-\item{workunits}{- list of workunits to perform an action}
+\item{logicalFiles}{- list of logical files}
 }
 \value{
 - status of processed operation
 }
 \description{
-This function performs an action on a list of workunits
+This function performs an action on a list of logical files
 }

@@ -1,9 +1,8 @@
-#' This function uploads file to specified table in the loading zone
+#' This function returns a list of DFU workunits
 #'
 #' @param conn - HPCC connection information
-#' @param tableName - table name where file will be stored. If table exists - it will be overwrtitten 
-#' @param fileNamePath - full path to file to be loaded
-#' @param loadingZonePath - loading zone path
+#' @param pageSize 
+#' @param pageStartFrom 
 #'
 #' @return - returns result of file uploading
 #' @export
@@ -43,12 +42,11 @@ r2hpcc.GetDFUWorkunits <- function(conn, pageSize = 50, pageStartFrom = 0)
 }
 
 
-#' This function uploads file to specified table in the loading zone
+#' This function returns a list of WS workunits
 #'
 #' @param conn - HPCC connection information
-#' @param tableName - table name where file will be stored. If table exists - it will be overwrtitten 
-#' @param fileNamePath - full path to file to be loaded
-#' @param loadingZonePath - loading zone path
+#' @param pageSize 
+#' @param pageStartFrom 
 #'
 #' @return - returns result of file uploading
 #' @export

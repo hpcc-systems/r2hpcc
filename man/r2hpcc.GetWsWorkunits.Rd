@@ -2,22 +2,20 @@
 % Please edit documentation in R/GetWorkunits.R
 \name{r2hpcc.GetWsWorkunits}
 \alias{r2hpcc.GetWsWorkunits}
-\title{This function uploads file to specified table in the loading zone}
+\title{This function returns a list of WS workunits}
 \usage{
 r2hpcc.GetWsWorkunits(conn, pageSize = 50, pageStartFrom = 0)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{tableName}{- table name where file will be stored. If table exists - it will be overwrtitten}
+\item{pageSize}{}
 
-\item{fileNamePath}{- full path to file to be loaded}
-
-\item{loadingZonePath}{- loading zone path}
+\item{pageStartFrom}{}
 }
 \value{
 - returns result of file uploading
 }
 \description{
-This function uploads file to specified table in the loading zone
+This function returns a list of WS workunits
 }

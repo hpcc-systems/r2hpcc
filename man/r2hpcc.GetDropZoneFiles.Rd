@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetDropZoneFiles.R
 \name{r2hpcc.GetDropZoneFiles}
 \alias{r2hpcc.GetDropZoneFiles}
-\title{This function uploads file to specified table in the loading zone}
+\title{This function returns a list of drop zone files}
 \usage{
 r2hpcc.GetDropZoneFiles(conn, loadingZonePath)
 }
@@ -10,14 +10,10 @@ r2hpcc.GetDropZoneFiles(conn, loadingZonePath)
 \item{conn}{- HPCC connection information}
 
 \item{loadingZonePath}{- loading zone path}
-
-\item{tableName}{- table name where file will be stored. If table exists - it will be overwrtitten}
-
-\item{fileNamePath}{- full path to file to be loaded}
 }
 \value{
 - returns result of file uploading
 }
 \description{
-This function uploads file to specified table in the loading zone
+This function returns a list of drop zone files
 }

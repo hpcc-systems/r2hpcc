@@ -1,10 +1,12 @@
-#' This function returns a list of drop zones
+#' This function returns a list of logical files
 #'
 #' @param conn - HPCC connection information
+#' @param pageSize 
+#' @param pageStartFrom 
 #'
-#' @return - status of processed operation
+#' @return - returns result of file uploading
 #' @export
-r2hpcc.GetDropZones <- function(conn)
+r2hpcc.GetLogicalFiles <- function(conn, pageSize = 50, pageStartFrom = 0)
 {
 	host <- conn[1]
 
@@ -23,7 +25,7 @@ r2hpcc.GetDropZones <- function(conn)
 					'Accept-Encoding' = "gzip, deflate")
 	
 	url <- ""
-	url <- paste('http://', host, ':8010/FileSpray/DropZoneFiles.json?rawxml_=1&id=*', sep="")
+	url <- paste('http://', host, ':8010/WsDfu/DFUQuery.json?rawxml_=1&PageSize=', pageSize, '&PageStartFrom=', pageStartFrom, sep="")
 
 	curlPerform(url = url,
 				httpheader = headerFields,

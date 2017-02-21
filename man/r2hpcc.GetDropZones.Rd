@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetDropZones.R
 \name{r2hpcc.GetDropZones}
 \alias{r2hpcc.GetDropZones}
-\title{This function performs an action on a list of workunits}
+\title{This function returns a list of drop zones}
 \usage{
 r2hpcc.GetDropZones(conn)
 }
@@ -13,5 +13,5 @@ r2hpcc.GetDropZones(conn)
 - status of processed operation
 }
 \description{
-This function performs an action on a list of workunits
+This function returns a list of drop zones
 }
