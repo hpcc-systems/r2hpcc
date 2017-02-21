@@ -7,7 +7,7 @@
 #'
 #' @return - returns result of file uploading
 #' @export
-r2hpcc.UploadFile <- function(conn, dropZoneFileName, fileNamePath, loadingZonePath)
+r2hpcc.DeleteDropZoneFile <- function(conn, dropZoneFileName, loadingZonePath)
 {
 	host <- conn[1]
 
@@ -21,28 +21,18 @@ r2hpcc.UploadFile <- function(conn, dropZoneFileName, fileNamePath, loadingZoneP
 	handle = getCurlHandle()
 	
 	headerFields = c(Accept = "application/json",
-					'Content-Type' = "multipart/form-data; boundary=---------------------------188202622614077",
+					'Content-Type' = "application/x-www-form-urlencoded",
 					Referer = paste('http://', host, ':8010/', sep=""),
 					'Accept-Encoding' = "gzip, deflate")
 	
 	url <- ""
-	url <- paste('http://', host, ':8010/FileSpray/UploadFile.json?upload_&rawxml_=1&NetAddress=', host, '&OS=2&Path=', loadingZonePath, sep="")
+	url <- paste('http://', host, ':8010/FileSpray/DeleteDropZoneFiles.json?rawxml_=1&NetAddress=', host, '&OS=2&Path=', loadingZonePath, '&Names=', gsub(" ", "%20", dropZoneFileName), sep="")
 	
-	body <- ""
-	body <- paste('-----------------------------188202622614077',
-				paste('Content-Disposition: form-data; name="uploadedfiles[]"; filename="', dropZoneFileName, '"', sep=""),
-				'Content-Type: application/octet-stream',
-				'',
-				readChar(fileNamePath, file.info(fileNamePath)$size),
-				'-----------------------------188202622614077--',
-				sep="\r\n")
-
 	curlPerform(url = url,
 				httpheader = headerFields,
-				postfields = body,
 				writefunction = reader$update,
 				curl = handle)
-	
+
 	status = getCurlInfo(handle)$response.code
 	varWu1 <- reader$value()
 	txt <- gsub("&lt;", "<", varWu1)

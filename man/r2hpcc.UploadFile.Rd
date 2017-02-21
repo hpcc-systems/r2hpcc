@@ -4,12 +4,12 @@
 \alias{r2hpcc.UploadFile}
 \title{This function uploads file to specified table in the loading zone}
 \usage{
-r2hpcc.UploadFile(conn, tableName, fileNamePath, loadingZonePath)
+r2hpcc.UploadFile(conn, dropZoneFileName, fileNamePath, loadingZonePath)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{tableName}{- table name where file will be stored. If table exists - it will be overwrtitten}
+\item{dropZoneFileName}{- table name where file will be stored. If table exists - it will be overwrtitten}
 
 \item{fileNamePath}{- full path to file to be loaded}
 

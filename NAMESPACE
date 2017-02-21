@@ -2,7 +2,8 @@
 
 export(r2hpcc.Connect)
 export(r2hpcc.DeleteDFUWorkspaces)
-export(r2hpcc.DeleteDropZoneFiles)
+export(r2hpcc.DeleteDropZoneFile)
+export(r2hpcc.DeleteLogicalFiles)
 export(r2hpcc.Echo)
 export(r2hpcc.ExecutePreparedSQL)
 export(r2hpcc.ExecutePreparedSQL2)

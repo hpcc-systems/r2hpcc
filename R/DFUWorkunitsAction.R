@@ -7,7 +7,7 @@
 #' @export
 r2hpcc.DeleteDFUWorkspaces <- function(conn, workunits)
 {
-	resp <- r2hpcc.GetDFUWorkunitsAction(conn, "Delete", workunits)
+	resp <- r2hpcc.DFUWorkunitsAction(conn, "Delete", workunits)
 	resp
 }
 
@@ -21,7 +21,7 @@ r2hpcc.DeleteDFUWorkspaces <- function(conn, workunits)
 #' @export
 r2hpcc.SetToFailedDFUWorkspaces <- function(conn, workunits)
 {
-	resp <- r2hpcc.GetDFUWorkunitsAction(conn, "SetToFailed", workunits)
+	resp <- r2hpcc.DFUWorkunitsAction(conn, "SetToFailed", workunits)
 	resp
 }
 
@@ -34,7 +34,7 @@ r2hpcc.SetToFailedDFUWorkspaces <- function(conn, workunits)
 #' @export
 r2hpcc.ProtectDFUWorkspaces <- function(conn, workunits)
 {
-  resp <- r2hpcc.GetDFUWorkunitsAction(conn, "Protect", workunits)
+  resp <- r2hpcc.DFUWorkunitsAction(conn, "Protect", workunits)
   resp
 }
 
@@ -47,7 +47,7 @@ r2hpcc.ProtectDFUWorkspaces <- function(conn, workunits)
 #' @export
 r2hpcc.UnprotectDFUWorkspaces <- function(conn, workunits)
 {
-  resp <- r2hpcc.GetDFUWorkunitsAction(conn, "Unprotect", workunits)
+  resp <- r2hpcc.DFUWorkunitsAction(conn, "Unprotect", workunits)
   resp
 }
 
@@ -59,7 +59,7 @@ r2hpcc.UnprotectDFUWorkspaces <- function(conn, workunits)
 #' @param workunits - list of workunits to perform an action
 #'
 #' @return - status of processed operation
-r2hpcc.GetDFUWorkunitsAction <- function(conn, action, workunits)
+r2hpcc.DFUWorkunitsAction <- function(conn, action, workunits)
 {
 	host <- conn[1]
 
