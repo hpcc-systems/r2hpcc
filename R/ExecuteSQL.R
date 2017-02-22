@@ -7,6 +7,7 @@
 #' @param conn - hpcc connection information
 #' @param query - SQL statement to execute
 #' @param limit - limit number of rows to retrieve (defaults to connection level if not provided)
+#'
 #' @export 
 r2hpcc.ExecuteSQL <- function(conn, query, limit)
 {

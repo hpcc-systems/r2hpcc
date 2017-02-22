@@ -15,19 +15,6 @@ r2hpcc.DeleteDFUWorkunits <- function(conn, workunits)
 #' Title
 #'
 #' @param conn - HPCC connection information
-#' @param workunits - list of workunits to set to failed
-#'
-#' @return - status of processed operation
-#' @export
-r2hpcc.SetToFailedDFUWorkunits <- function(conn, workunits)
-{
-	resp <- r2hpcc.DFUWorkunitsAction(conn, "SetToFailed", workunits)
-	resp
-}
-
-#' Title
-#'
-#' @param conn - HPCC connection information
 #' @param workunits - list of workunits to set to protected
 #'
 #' @return - status of processed operation
@@ -37,6 +24,7 @@ r2hpcc.ProtectDFUWorkunits <- function(conn, workunits)
   resp <- r2hpcc.DFUWorkunitsAction(conn, "Protect", workunits)
   resp
 }
+
 
 #' Title
 #'
@@ -48,6 +36,34 @@ r2hpcc.ProtectDFUWorkunits <- function(conn, workunits)
 r2hpcc.UnprotectDFUWorkunits <- function(conn, workunits)
 {
   resp <- r2hpcc.DFUWorkunitsAction(conn, "Unprotect", workunits)
+  resp
+}
+
+
+#' Title
+#'
+#' @param conn - HPCC connection information
+#' @param workunits - list of workunits to set to restored
+#'
+#' @return - status of processed operation
+#' @export
+r2hpcc.RestoreDFUWorkunits <- function(conn, workunits)
+{
+	resp <- r2hpcc.DFUWorkunitsAction(conn, "Restore", workunits)
+	resp
+}
+
+
+#' Title
+#'
+#' @param conn - HPCC connection information
+#' @param workunits - list of workunits to set to failed
+#'
+#' @return - status of processed operation
+#' @export
+r2hpcc.SetToFailedDFUWorkunits <- function(conn, workunits)
+{
+  resp <- r2hpcc.DFUWorkunitsAction(conn, "SetToFailed", workunits)
   resp
 }
 

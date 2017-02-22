@@ -9,11 +9,7 @@ r2hpcc.GetWsWorkunit(conn, workunit)
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{tableName}{- table name where file will be stored. If table exists - it will be overwrtitten}
-
-\item{fileNamePath}{- full path to file to be loaded}
-
-\item{loadingZonePath}{- loading zone path}
+\item{workunit}{}
 }
 \value{
 - returns result of file uploading

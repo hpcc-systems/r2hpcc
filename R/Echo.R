@@ -3,7 +3,7 @@
 #' A successful response indicates a good connection to the server hosting the Ws-SQL Web service.
 #'
 #' @param conn - HPCC connection information
-#' @param request - String to echo in result
+#' @param echo - String to echo in result
 #'
 #' @return - Echo string passed in
 #' @export

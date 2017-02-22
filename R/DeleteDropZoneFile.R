@@ -2,7 +2,6 @@
 #'
 #' @param conn - HPCC connection information
 #' @param dropZoneFileName - table name where file will be stored. If table exists - it will be overwrtitten 
-#' @param fileNamePath - full path to file to be loaded
 #' @param loadingZonePath - loading zone path
 #'
 #' @return - returns result of file uploading

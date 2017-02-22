@@ -4,10 +4,12 @@
 #' and returns a connection object
 #'
 #' @param host - ip address of HPCC host
-#' @param targetcluster - Target Thor cluster
-#' @param userid - user id - if the cluster is secure
+#' @param targetCluster - Target Thor cluster
+#' @param userId - user id - if the cluster is secure
 #' @param password - password associated with the user
 #' @param resultLimit - limits the result at connection level
+#' @param debugMode
+#'
 #' @export
 r2hpcc.Connect <- function(host, targetCluster, userId, password, resultLimit, debugMode = FALSE)
 {

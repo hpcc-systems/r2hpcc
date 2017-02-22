@@ -1,9 +1,7 @@
 #' This function uploads file to specified table in the loading zone
 #'
 #' @param conn - HPCC connection information
-#' @param tableName - table name where file will be stored. If table exists - it will be overwrtitten 
-#' @param fileNamePath - full path to file to be loaded
-#' @param loadingZonePath - loading zone path
+#' @param workunit 
 #'
 #' @return - returns result of file uploading
 #' @export
@@ -46,9 +44,7 @@ r2hpcc.GetDFUWorkunit <- function(conn, workunit)
 #' This function uploads file to specified table in the loading zone
 #'
 #' @param conn - HPCC connection information
-#' @param tableName - table name where file will be stored. If table exists - it will be overwrtitten 
-#' @param fileNamePath - full path to file to be loaded
-#' @param loadingZonePath - loading zone path
+#' @param workunit 
 #'
 #' @return - returns result of file uploading
 #' @export

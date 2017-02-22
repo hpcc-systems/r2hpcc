@@ -12,8 +12,6 @@ r2hpcc.DeleteDropZoneFile(conn, dropZoneFileName, loadingZonePath)
 \item{dropZoneFileName}{- table name where file will be stored. If table exists - it will be overwrtitten}
 
 \item{loadingZonePath}{- loading zone path}
-
-\item{fileNamePath}{- full path to file to be loaded}
 }
 \value{
 - returns result of file uploading
