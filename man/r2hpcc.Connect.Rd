@@ -10,13 +10,15 @@ r2hpcc.Connect(host, targetCluster, userId, password, resultLimit,
 \arguments{
 \item{host}{- ip address of HPCC host}
 
+\item{targetCluster}{- Target Thor cluster}
+
+\item{userId}{- user id - if the cluster is secure}
+
 \item{password}{- password associated with the user}
 
 \item{resultLimit}{- limits the result at connection level}
 
-\item{targetcluster}{- Target Thor cluster}
-
-\item{userid}{- user id - if the cluster is secure}
+\item{debugMode}{}
 }
 \description{
 Takes in the HPCC host name, target cluster, user name, password, reult limit

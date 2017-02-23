@@ -9,33 +9,12 @@ r2hpcc.GetDropZoneFiles <- function(conn, loadingZonePath)
 {
 	host <- conn[1]
 
+	params <- list()
+	params[["rawxml_"]] <- 1
+	params[["Netaddr"]] <- host
+	params[["OS"]] <- 2
+	params[["Path"]] <- loadingZonePath
 
-
-
-	debugMode <- conn[6]
-
-	reader = basicTextGatherer()
-	
-	handle = getCurlHandle()
-	
-	headerFields = c(Accept = "application/json",
-					'Content-Type' = "application/x-www-form-urlencoded",
-					Referer = paste('http://', host, ':8010/', sep=""),
-					'Accept-Encoding' = "gzip, deflate")
-	
-	url <- ""
-	url <- paste('http://', host, ':8010/FileSpray/FileList.json?rawxml_=1&Netaddr=', host, '&OS=2&Path=', loadingZonePath, sep="")
-
-	curlPerform(url = url,
-				httpheader = headerFields,
-				writefunction = reader$update,
-				curl = handle)
-	
-	status = getCurlInfo(handle)$response.code
-	varWu1 <- reader$value()
-	txt <- gsub("&lt;", "<", varWu1)
-	txt <- gsub("&gt;", ">", txt)
-	txt <- gsub("&apos;", "'", txt)
-	txt <- gsub("&quot;", "\"", txt)
-	txt
+	resp <- r2hpcc.HTTPRequest2(host, 8010, "FileSpray/FileList.json", params)
+	resp
 }

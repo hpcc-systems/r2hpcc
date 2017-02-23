@@ -11,7 +11,7 @@ r2hpcc.Echo(conn, echo)
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{request}{- String to echo in result}
+\item{echo}{- String to echo in result}
 }
 \value{
 - Echo string passed in
