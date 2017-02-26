@@ -3,51 +3,33 @@
 #' @param conn - HPCC connection information
 #' @param dropZoneFileName - table name where file will be stored. If table exists - it will be overwrtitten 
 #' @param fileNamePath - full path to file to be loaded
-#' @param loadingZonePath - loading zone path
+#' @param dropZonePath - drop zone path
 #'
-#' @return - returns result of file uploading
+#' @return - result of file uploading
 #' @export
-r2hpcc.UploadFile <- function(conn, dropZoneFileName, fileNamePath, loadingZonePath)
+r2hpcc.UploadFile <- function(conn, destinationFileName, dropZonePath, sourceFileNamePath)
 {
 	host <- conn[1]
 
+	params <- list()
+	params[["upload_"]] <- ""
+	params[["rawxml_"]] <- 1
+	params[["NetAddress"]] <- host
+	params[["OS"]] <- 2
+	params[["Path"]] <- dropZonePath
 
+	header <- list()
+	header[["Content-Type"]] <- "multipart/form-data; boundary=---------------------------188202622614077"
 
-
-	debugMode <- conn[6]
-
-	reader = basicTextGatherer()
-	
-	handle = getCurlHandle()
-	
-	headerFields = c(Accept = "application/json",
-					'Content-Type' = "multipart/form-data; boundary=---------------------------188202622614077",
-					Referer = paste('http://', host, ':8010/', sep=""),
-					'Accept-Encoding' = "gzip, deflate")
-	
-	url <- ""
-	url <- paste('http://', host, ':8010/FileSpray/UploadFile.json?upload_&rawxml_=1&NetAddress=', host, '&OS=2&Path=', loadingZonePath, sep="")
-	
 	body <- ""
-	body <- paste('-----------------------------188202622614077',
-				paste('Content-Disposition: form-data; name="uploadedfiles[]"; filename="', dropZoneFileName, '"', sep=""),
-				'Content-Type: application/octet-stream',
-				'',
-				readChar(fileNamePath, file.info(fileNamePath)$size),
-				'-----------------------------188202622614077--',
-				sep="\r\n")
+	body <- paste("-----------------------------188202622614077",
+				paste('Content-Disposition: form-data; name="uploadedfiles[]"; filename="', destinationFileName, '"', sep=""),
+				"Content-Type: application/octet-stream",
+				"",
+				readChar(sourceFileNamePath, file.info(sourceFileNamePath)$size),
+				"-----------------------------188202622614077--",
+				sep = "\r\n")
 
-	curlPerform(url = url,
-				httpheader = headerFields,
-				postfields = body,
-				writefunction = reader$update,
-				curl = handle)
-	
-	status = getCurlInfo(handle)$response.code
-	varWu1 <- reader$value()
-	txt <- gsub("&lt;", "<", varWu1)
-	txt <- gsub("&gt;", ">", txt)
-	txt <- gsub("&apos;", "'", txt)
-	txt <- gsub("&quot;", "\"", txt)
-	txt
+	resp <- r2hpcc.HTTPRequest2(host, 8010, "FileSpray/UploadFile.json", params, header, body)
+	resp
 }

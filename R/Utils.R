@@ -40,7 +40,7 @@ r2hpcc.HTTPRequest <- function(host, userId, password, action, body)
 	txt
 }
 
-r2hpcc.HTTPRequest2 <- function(host, port, urn, params, body = NULL)
+r2hpcc.HTTPRequest2 <- function(host, port, urn, params, headers = NULL, body = NULL)
 {
 	args <- ""
 	if (!is.null(params) & length(params) > 0)
@@ -59,7 +59,6 @@ r2hpcc.HTTPRequest2 <- function(host, port, urn, params, body = NULL)
 			args <- paste(args, param, "=", params[[param]], sep = "")
 		}
 	}
-	print(args)
 
 	url <- ""
 	url <- paste("http://", host, ":", port, "/", urn, args, sep = "")
@@ -69,10 +68,21 @@ r2hpcc.HTTPRequest2 <- function(host, port, urn, params, body = NULL)
 
 	handle = getCurlHandle()
 
-	headerFields = c(Accept = "application/json",
-					 "Content-Type" = "application/x-www-form-urlencoded",
-					 Referer = paste("http://", host, ":", port, "/", sep = ""),
-					 "Accept-Encoding" = "gzip, deflate")
+	headerFields <- list()
+	headerFields[["Accept"]] <- "application/json"
+	headerFields[["Content-Type"]] <- "application/x-www-form-urlencoded"
+	headerFields[["Referer"]] <- paste("http://", host, ":", port, "/", sep = "")
+	headerFields[["Accept-Encoding"]] <- "gzip, deflate"
+
+	if (!is.null(headers) & length(headers) > 0)
+	{
+		for (header in names(headers))
+		{
+			headerFields[[header]] <- headers[[header]]
+		}
+	}
+	print(headerFields)
+
 
 	if(is.null(body))
 	{

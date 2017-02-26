@@ -2,18 +2,18 @@
 % Please edit documentation in R/GetDropZoneFiles.R
 \name{r2hpcc.GetDropZoneFiles}
 \alias{r2hpcc.GetDropZoneFiles}
-\title{This function returns a list of drop zone files}
+\title{This function returns a list of files in the specified drop zone}
 \usage{
-r2hpcc.GetDropZoneFiles(conn, loadingZonePath)
+r2hpcc.GetDropZoneFiles(conn, dropZonePath)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{loadingZonePath}{- loading zone path}
+\item{dropZonePath}{- drop zone path}
 }
 \value{
-- returns result of file uploading
+- returns a list of files in the drop zone
 }
 \description{
-This function returns a list of drop zone files
+This function returns a list of files in the specified drop zone
 }

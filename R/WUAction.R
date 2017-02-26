@@ -21,8 +21,8 @@ r2hpcc.DeleteWsWorkunits <- function(conn, workunits)
 #' @export
 r2hpcc.SetToFailedWsWorkunits <- function(conn, workunits)
 {
-  resp <- r2hpcc.WUAction(conn, "SetToFailed", workunits)
-  resp
+	resp <- r2hpcc.WUAction(conn, "SetToFailed", workunits)
+	resp
 }
 
 
@@ -35,8 +35,8 @@ r2hpcc.SetToFailedWsWorkunits <- function(conn, workunits)
 #' @export
 r2hpcc.ProtectWsWorkunits <- function(conn, workunits)
 {
-  resp <- r2hpcc.WUAction(conn, "Protect", workunits)
-  resp
+	resp <- r2hpcc.WUAction(conn, "Protect", workunits)
+	resp
 }
 
 
@@ -49,8 +49,8 @@ r2hpcc.ProtectWsWorkunits <- function(conn, workunits)
 #' @export
 r2hpcc.UnprotectWsWorkunits <- function(conn, workunits)
 {
-  resp <- r2hpcc.WUAction(conn, "Unprotect", workunits)
-  resp
+	resp <- r2hpcc.WUAction(conn, "Unprotect", workunits)
+	resp
 }
 
 
@@ -65,43 +65,20 @@ r2hpcc.WUAction <- function(conn, action, workunits)
 {
 	host <- conn[1]
 
-
-
-
-	debugMode <- conn[6]
-
-	reader = basicTextGatherer()
-	
-	handle = getCurlHandle()
-	
-	headerFields = c(Accept = "application/json",
-					'Content-Type' = "application/x-www-form-urlencoded",
-					Referer = paste('http://', host, ':8010/', sep=""),
-					'Accept-Encoding' = "gzip, deflate")
-	
-	url <- ""
-	url <- paste('http://', host, ':8010/FileSpray/DFUWorkunitsAction.json?rawxml_=1&WUActionType=', action, sep="")
-
+	params <- list()
+	params[["rawxml_"]] <- 1
+	params[["WUActionType"]] <- action
 	if (!is.null(workunits) & length(workunits) > 0)
 	{
-	  i <- 0
+		i <- 0
 		for (workunit in workunits)
 		{
-			url <- paste(url, '&Wuids_i', i, '=', workunit, sep="")
+			key <- paster("Wuids_i", i, sep = "")
+			params[[key]] <- workunit
 			i <- i + 1
 		}
 	}
 
-	curlPerform(url = url,
-				httpheader = headerFields,
-				writefunction = reader$update,
-				curl = handle)
-	
-	status = getCurlInfo(handle)$response.code
-	varWu1 <- reader$value()
-	txt <- gsub("&lt;", "<", varWu1)
-	txt <- gsub("&gt;", ">", txt)
-	txt <- gsub("&apos;", "'", txt)
-	txt <- gsub("&quot;", "\"", txt)
-	txt
+	resp <- r2hpcc.HTTPRequest2(host, 8010, "WsWorkunits/WUAction.json", params)
+	resp
 }

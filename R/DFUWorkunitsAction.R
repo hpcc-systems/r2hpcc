@@ -21,8 +21,8 @@ r2hpcc.DeleteDFUWorkunits <- function(conn, workunits)
 #' @export
 r2hpcc.ProtectDFUWorkunits <- function(conn, workunits)
 {
-  resp <- r2hpcc.DFUWorkunitsAction(conn, "Protect", workunits)
-  resp
+	resp <- r2hpcc.DFUWorkunitsAction(conn, "Protect", workunits)
+	resp
 }
 
 
@@ -35,8 +35,8 @@ r2hpcc.ProtectDFUWorkunits <- function(conn, workunits)
 #' @export
 r2hpcc.UnprotectDFUWorkunits <- function(conn, workunits)
 {
-  resp <- r2hpcc.DFUWorkunitsAction(conn, "Unprotect", workunits)
-  resp
+	resp <- r2hpcc.DFUWorkunitsAction(conn, "Unprotect", workunits)
+	resp
 }
 
 
@@ -63,8 +63,8 @@ r2hpcc.RestoreDFUWorkunits <- function(conn, workunits)
 #' @export
 r2hpcc.SetToFailedDFUWorkunits <- function(conn, workunits)
 {
-  resp <- r2hpcc.DFUWorkunitsAction(conn, "SetToFailed", workunits)
-  resp
+	resp <- r2hpcc.DFUWorkunitsAction(conn, "SetToFailed", workunits)
+	resp
 }
 
 
@@ -79,43 +79,20 @@ r2hpcc.DFUWorkunitsAction <- function(conn, action, workunits)
 {
 	host <- conn[1]
 
-
-
-
-	debugMode <- conn[6]
-
-	reader = basicTextGatherer()
-	
-	handle = getCurlHandle()
-	
-	headerFields = c(Accept = "application/json",
-					'Content-Type' = "application/x-www-form-urlencoded",
-					Referer = paste('http://', host, ':8010/', sep=""),
-					'Accept-Encoding' = "gzip, deflate")
-	
-	url <- ""
-	url <- paste('http://', host, ':8010/FileSpray/DFUWorkunitsAction.json?rawxml_=1&Type=', action, sep="")
-
+	params <- list()
+	params[["rawxml_"]] <- 1
+	params[["Type"]] <- action
 	if (!is.null(workunits) & length(workunits) > 0)
 	{
-	  i <- 0
+	 	i <- 0
 		for (workunit in workunits)
 		{
-			url <- paste(url, '&wuids_i', i, '=', workunit, sep="")
+			key <- paste("wuids_i", i, sep = "")
+			params[[key]] <- workunit
 			i <- i + 1
 		}
 	}
 
-	curlPerform(url = url,
-				httpheader = headerFields,
-				writefunction = reader$update,
-				curl = handle)
-	
-	status = getCurlInfo(handle)$response.code
-	varWu1 <- reader$value()
-	txt <- gsub("&lt;", "<", varWu1)
-	txt <- gsub("&gt;", ">", txt)
-	txt <- gsub("&apos;", "'", txt)
-	txt <- gsub("&quot;", "\"", txt)
-	txt
+	resp <- r2hpcc.HTTPRequest2(host, 8010, "FileSpray/DFUWorkunitsAction.json", params)
+	resp
 }

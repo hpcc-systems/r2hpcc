@@ -4,7 +4,7 @@
 \alias{r2hpcc.SprayFixed}
 \title{This function deletes a list of logical files}
 \usage{
-r2hpcc.SprayFixed(conn, sourseIP, soursePath, recordSize, destinationGroup,
+r2hpcc.SprayFixed(conn, sourceIP, sourcePath, recordSize, destinationGroup,
   namePrefix, targetName, overwrite = FALSE, compress = FALSE)
 }
 \arguments{

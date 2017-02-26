@@ -2,20 +2,20 @@
 % Please edit documentation in R/DeleteDropZoneFile.R
 \name{r2hpcc.DeleteDropZoneFile}
 \alias{r2hpcc.DeleteDropZoneFile}
-\title{This function uploads file to specified table in the loading zone}
+\title{This function deletes a file in specified drop zone}
 \usage{
-r2hpcc.DeleteDropZoneFile(conn, dropZoneFileName, loadingZonePath)
+r2hpcc.DeleteDropZoneFile(conn, dropZoneFileName, dropZonePath)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{dropZoneFileName}{- table name where file will be stored. If table exists - it will be overwrtitten}
+\item{dropZoneFileName}{- file to be deleted}
 
-\item{loadingZonePath}{- loading zone path}
+\item{dropZonePath}{- drop zone path}
 }
 \value{
 - returns result of file uploading
 }
 \description{
-This function uploads file to specified table in the loading zone
+This function deletes a file in specified drop zone
 }
