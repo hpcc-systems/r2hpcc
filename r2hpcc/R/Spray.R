@@ -1,7 +1,14 @@
 #' This function deletes a list of logical files
 #'
 #' @param conn - HPCC connection information
-#' @param logicalFiles - list of logical files
+#' @param sourceIP 
+#' @param sourcePath 
+#' @param recordSize 
+#' @param destinationGroup 
+#' @param namePrefix 
+#' @param targetName 
+#' @param overwrite 
+#' @param compress 
 #'
 #' @return - status of processed operation
 #' @export

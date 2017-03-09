@@ -9,11 +9,11 @@ r2hpcc.UploadFile(conn, destinationFileName, dropZonePath, sourceFileNamePath)
 \arguments{
 \item{conn}{- HPCC connection information}
 
+\item{destinationFileName}{- file name to be used in the drop zone}
+
 \item{dropZonePath}{- drop zone path}
 
-\item{dropZoneFileName}{- table name where file will be stored. If table exists - it will be overwrtitten}
-
-\item{fileNamePath}{- full path to file to be loaded}
+\item{sourceFileNamePath}{- full path to source file}
 }
 \value{
 - result of file uploading

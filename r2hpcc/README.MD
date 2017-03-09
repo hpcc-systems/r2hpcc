@@ -18,7 +18,7 @@ install.packages("r2hpcc_0.1.0.tar.gz",repos = NULL, type="source")
 
 Create connection to hpcc
 --------------------------
-conn <- r2hpcc.hpccConnect("xxx.xxx.xx.xxx", "cluster", "userid", "password", resultlimit)
+conn <- r2hpcc.Connect("xxx.xxx.xx.xxx", "cluster", "userid", "password", resultlimit)
 
 Get data from HPCC
 ----------------

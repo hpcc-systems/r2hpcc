@@ -10,7 +10,21 @@ r2hpcc.SprayFixed(conn, sourceIP, sourcePath, recordSize, destinationGroup,
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{logicalFiles}{- list of logical files}
+\item{sourceIP}{}
+
+\item{sourcePath}{}
+
+\item{recordSize}{}
+
+\item{destinationGroup}{}
+
+\item{namePrefix}{}
+
+\item{targetName}{}
+
+\item{overwrite}{}
+
+\item{compress}{}
 }
 \value{
 - status of processed operation

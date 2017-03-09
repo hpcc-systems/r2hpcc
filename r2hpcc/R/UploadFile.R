@@ -1,9 +1,9 @@
 #' This function uploads file to specified table in the loading zone
 #'
 #' @param conn - HPCC connection information
-#' @param dropZoneFileName - table name where file will be stored. If table exists - it will be overwrtitten 
-#' @param fileNamePath - full path to file to be loaded
+#' @param destinationFileName - file name to be used in the drop zone
 #' @param dropZonePath - drop zone path
+#' @param sourceFileNamePath  - full path to source file
 #'
 #' @return - result of file uploading
 #' @export
