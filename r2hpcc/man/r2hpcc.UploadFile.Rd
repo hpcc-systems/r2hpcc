@@ -2,7 +2,7 @@
 % Please edit documentation in R/UploadFile.R
 \name{r2hpcc.UploadFile}
 \alias{r2hpcc.UploadFile}
-\title{This function uploads file to specified table in the loading zone}
+\title{This function uploads file to specified table in the drop zone}
 \usage{
 r2hpcc.UploadFile(conn, destinationFileName, dropZonePath, sourceFileNamePath)
 }
@@ -19,5 +19,5 @@ r2hpcc.UploadFile(conn, destinationFileName, dropZonePath, sourceFileNamePath)
 - result of file uploading
 }
 \description{
-This function uploads file to specified table in the loading zone
+This function uploads file to specified table in the drop zone
 }

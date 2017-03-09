@@ -2,18 +2,18 @@
 % Please edit documentation in R/GetDFUWorkunit.R
 \name{r2hpcc.GetDFUWorkunit}
 \alias{r2hpcc.GetDFUWorkunit}
-\title{This function uploads file to specified table in the loading zone}
+\title{This function returns DFU workunit information}
 \usage{
 r2hpcc.GetDFUWorkunit(conn, workunit)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
 
-\item{workunit}{}
+\item{workunit}{- DFU workunit id}
 }
 \value{
-- returns result of file uploading
+- returns workunit
 }
 \description{
-This function uploads file to specified table in the loading zone
+This function returns DFU workunit information
 }

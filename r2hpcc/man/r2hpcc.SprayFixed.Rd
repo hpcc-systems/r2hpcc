@@ -2,7 +2,7 @@
 % Please edit documentation in R/Spray.R
 \name{r2hpcc.SprayFixed}
 \alias{r2hpcc.SprayFixed}
-\title{This function deletes a list of logical files}
+\title{This function sprays a file from the drop zone}
 \usage{
 r2hpcc.SprayFixed(conn, sourceIP, sourcePath, recordSize, destinationGroup,
   namePrefix, targetName, overwrite = FALSE, compress = FALSE)
@@ -30,5 +30,5 @@ r2hpcc.SprayFixed(conn, sourceIP, sourcePath, recordSize, destinationGroup,
 - status of processed operation
 }
 \description{
-This function deletes a list of logical files
+This function sprays a file from the drop zone
 }

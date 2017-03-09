@@ -14,7 +14,7 @@ r2hpcc.GetDFUWorkunits(conn, pageSize = 50, pageStartFrom = 0)
 \item{pageStartFrom}{}
 }
 \value{
-- returns result of file uploading
+- returns list of workunits
 }
 \description{
 This function returns a list of DFU workunits
