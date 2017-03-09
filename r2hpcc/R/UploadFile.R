@@ -1,4 +1,4 @@
-#' This function uploads file to specified table in the loading zone
+#' This function uploads file to specified table in the drop zone
 #'
 #' @param conn - HPCC connection information
 #' @param destinationFileName - file name to be used in the drop zone

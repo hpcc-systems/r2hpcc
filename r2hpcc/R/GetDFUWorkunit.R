@@ -1,12 +1,10 @@
-
-
 #' This function returns a list of DFU workunits
 #'
 #' @param conn - HPCC connection information
 #' @param pageSize 
 #' @param pageStartFrom 
 #'
-#' @return - returns result of file uploading
+#' @return - returns list of workunits
 #' @export
 r2hpcc.GetDFUWorkunits <- function(conn, pageSize = 50, pageStartFrom = 0)
 {
@@ -22,12 +20,12 @@ r2hpcc.GetDFUWorkunits <- function(conn, pageSize = 50, pageStartFrom = 0)
 }
 
 
-#' This function uploads file to specified table in the loading zone
+#' This function returns DFU workunit information
 #'
 #' @param conn - HPCC connection information
-#' @param workunit 
+#' @param workunit - DFU workunit id
 #'
-#' @return - returns result of file uploading
+#' @return - returns workunit
 #' @export
 r2hpcc.GetDFUWorkunit <- function(conn, workunit)
 {

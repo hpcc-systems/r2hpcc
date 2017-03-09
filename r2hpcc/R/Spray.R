@@ -1,4 +1,4 @@
-#' This function deletes a list of logical files
+#' This function sprays a file from the drop zone
 #'
 #' @param conn - HPCC connection information
 #' @param sourceIP 
