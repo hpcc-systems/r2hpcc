@@ -12,10 +12,10 @@ Prerequisite
 			
 			XML
 		
-Download the package to  R working directory and run the below command.		
 
-install.packages("r2hpcc_0.1.0.tar.gz",repos = NULL, type="source")
-
+install.packages("devtools")
+library("devtools")
+devtools::install_github("chuajoey/r2hpcc")
 
 Create connection to hpcc
 --------------------------
