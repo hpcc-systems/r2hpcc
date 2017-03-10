@@ -4,6 +4,8 @@ Wiki: https://github.com/chuajoey/r2hpcc/wiki/r2hpcc
 
 Issues and requests: https://github.com/chuajoey/r2hpcc/issues
 
+For information on supported SQL queries, see the HPCC WsSQL User Guide in https://hpccsystems.com/download/free-modules/WSSQL
+
 Installation
 ------------
 Prerequisites
