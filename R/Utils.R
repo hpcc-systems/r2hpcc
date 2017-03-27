@@ -40,6 +40,8 @@ r2hpcc.HTTPRequest <- function(host, userId, password, action, body)
 	txt
 }
 
+
+#
 r2hpcc.HTTPRequest2 <- function(host, port, urn, params, headers = NULL, body = NULL)
 {
 	args <- ""
@@ -62,7 +64,7 @@ r2hpcc.HTTPRequest2 <- function(host, port, urn, params, headers = NULL, body = 
 
 	url <- ""
 	url <- paste("http://", host, ":", port, "/", urn, args, sep = "")
-	print(url)
+#	print(url)
 
 	reader = basicTextGatherer()
 
@@ -81,8 +83,7 @@ r2hpcc.HTTPRequest2 <- function(host, port, urn, params, headers = NULL, body = 
 			headerFields[[header]] <- headers[[header]]
 		}
 	}
-	print(headerFields)
-
+#	print(headerFields)
 
 	if(is.null(body))
 	{
@@ -107,5 +108,6 @@ r2hpcc.HTTPRequest2 <- function(host, port, urn, params, headers = NULL, body = 
 	txt <- gsub("&gt;", ">", txt)
 	txt <- gsub("&apos;", "'", txt)
 	txt <- gsub("&quot;", "\"", txt)
+	txt <- jsonlite::fromJSON(txt)
 	txt
 }
