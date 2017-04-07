@@ -67,6 +67,7 @@ r2hpcc.GetDBMetaData <- function(conn, includeTables = 1, tableFilter = "", incl
 			print("DEBUG Message <GetDBMetaDataResponse node converted to list>:")
 			print(l1)
 		}
+		l1
 	}
 	else
 		resp
