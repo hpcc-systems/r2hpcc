@@ -19,6 +19,7 @@ r2hpcc.GetDBMetaData <- function(conn, includeTables = 1, tableFilter = "", incl
 	password <- conn[4]
 
 	debugMode <- conn[6]
+	WsSQLPort <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -35,7 +36,7 @@ r2hpcc.GetDBMetaData <- function(conn, includeTables = 1, tableFilter = "", incl
 					</soap:Body>
 					</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetDBMetaData", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetDBMetaData", body,WsSQLPort)
 
 	if (debugMode == TRUE)
 	{

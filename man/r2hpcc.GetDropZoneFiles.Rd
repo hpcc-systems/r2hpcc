@@ -4,10 +4,12 @@
 \alias{r2hpcc.GetDropZoneFiles}
 \title{This function returns a list of files in the specified drop zone}
 \usage{
-r2hpcc.GetDropZoneFiles(conn, dropZonePath)
+r2hpcc.GetDropZoneFiles(conn, dropZoneIP, dropZonePath)
 }
 \arguments{
 \item{conn}{- HPCC connection information}
+
+\item{dropZoneIP}{- drop zone IP}
 
 \item{dropZonePath}{- drop zone path}
 }

@@ -14,7 +14,7 @@ r2hpcc.NVL <- function(arg1, arg2 = "")
 
 
 #
-r2hpcc.HTTPRequest <- function(host, userId, password, action, body)
+r2hpcc.HTTPRequest <- function(host, userId, password, action, body,WsSQLPort = "8510")
 {
 	reader = basicTextGatherer()
 	
@@ -23,7 +23,8 @@ r2hpcc.HTTPRequest <- function(host, userId, password, action, body)
 	headerFields = c(Accept = "text/xml", Accept = "multipart/*", "Content-Type" = "text/xml; charset=utf-8", SOAPAction = paste("wssql/", action, "?ver_=3.05", sep=""))
 
 	url <- ""
-	url <- paste("http://", userId , ":", password , "@", host, ":8510/", sep="")
+	url <- paste("http://", userId , ":", password , "@", host, ":", WsSQLPort ,"/", sep="")
+	
 
 	curlPerform(url = url,
 				httpheader = headerFields,

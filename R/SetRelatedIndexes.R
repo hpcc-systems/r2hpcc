@@ -15,6 +15,7 @@ r2hpcc.SetRelatedIndexes <- function(conn, fileName, indexes)
 	password <- conn[4]
 
 	debugMode <- conn[6]
+	WsSQLPort <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -40,7 +41,7 @@ r2hpcc.SetRelatedIndexes <- function(conn, fileName, indexes)
 						</soap:Body>
 						</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "SetRelatedIndexes", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "SetRelatedIndexes", body,WsSQLPort)
 
 	if (debugMode == TRUE)
 	{

@@ -18,7 +18,7 @@ Get the latest package:
 
     install.packages("devtools")
     library("devtools")
-    devtools::install_github("chuajoey/r2hpcc")
+    devtools::install_github("hpcc-systems/r2hpcc")
 
 Create connection to hpcc
 --------------------------

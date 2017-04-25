@@ -13,6 +13,7 @@ r2hpcc.GetDBSystemInfo <- function(conn, includeAll = 1)
 	password <- conn[4]
 
 	debugMode <- conn[6]
+	WsSQLPort <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -24,7 +25,7 @@ r2hpcc.GetDBSystemInfo <- function(conn, includeAll = 1)
 					</soap:Body>
 					</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetDBSystemInfo", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetDBSystemInfo", body,WsSQLPort)
 
 	if (debugMode == TRUE)
 	{

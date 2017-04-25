@@ -15,6 +15,7 @@ r2hpcc.Echo <- function(conn, echo)
 	password <- conn[4]
 
 	debugMode <- conn[6]
+	port <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -26,7 +27,7 @@ r2hpcc.Echo <- function(conn, echo)
 					</soap:Body>
 					</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "Echo", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "Echo", body,port)
 
 	if (debugMode == TRUE)
 	{

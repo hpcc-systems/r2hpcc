@@ -8,10 +8,11 @@
 #' @param userId - user id - if the cluster is secure
 #' @param password - password associated with the user
 #' @param resultLimit - limits the result at connection level
-#' @param debugMode
+#' @param debugMode - debug mode
+#' @param WsSQLPort - WsSQL Port default is 8510
 #'
 #' @export
-r2hpcc.Connect <- function(host, targetCluster, userId, password, resultLimit, debugMode = FALSE)
+r2hpcc.Connect <- function(host, targetCluster, userId, password, resultLimit, debugMode = FALSE,WsSQLPort = "8510")
 {
 	suppressMessages(library(RCurl))
 	suppressMessages(library(XML))
@@ -34,6 +35,6 @@ r2hpcc.Connect <- function(host, targetCluster, userId, password, resultLimit, d
 	hpccPassword <- gsub("\\@", "%40", hpccPassword)
 	hpccPassword <- gsub("\\[", "%5B", hpccPassword)
 	hpccPassword <- gsub("\\]", "%5D", hpccPassword)
-	connectionList <- c(host, targetCluster, userId, password, resultLimit, debugMode)
+	connectionList <- c(host, targetCluster, userId, hpccPassword, resultLimit, debugMode,WsSQLPort)
 	connectionList
 }

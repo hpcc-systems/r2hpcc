@@ -5,7 +5,7 @@
 \title{Creates a connection object for HPCC}
 \usage{
 r2hpcc.Connect(host, targetCluster, userId, password, resultLimit,
-  debugMode = FALSE)
+  debugMode = FALSE, WsSQLPort = "8510")
 }
 \arguments{
 \item{host}{- ip address of HPCC host}
@@ -18,7 +18,9 @@ r2hpcc.Connect(host, targetCluster, userId, password, resultLimit,
 
 \item{resultLimit}{- limits the result at connection level}
 
-\item{debugMode}{}
+\item{debugMode}{- debug mode}
+
+\item{WsSQLPort}{- WsSQL Port default is 8510}
 }
 \description{
 Takes in the HPCC host name, target cluster, user name, password, reult limit

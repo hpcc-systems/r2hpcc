@@ -18,6 +18,7 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
 	password <- conn[4]
 
 	debugMode <- conn[6]
+	WsSQLPort <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -32,7 +33,7 @@ r2hpcc.GetResults <- function(conn, workunitId, suppressXMLSchema = 1, resultWin
 					</soap:Body>
 					</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetResults", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetResults", body,WsSQLPort)
 
 	if (debugMode == TRUE)
 	{
@@ -103,6 +104,7 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
 	password <- conn[4]
 
 	debugMode <- conn[6]
+	WsSQLPort <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -117,7 +119,7 @@ r2hpcc.GetResults2 <- function(conn, workunitId, suppressXMLSchema = 1, resultWi
 					</soap:Body>
 					</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetResults", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "GetResults", body,WsSQLPort)
 
 	if (debugMode == TRUE)
 	{

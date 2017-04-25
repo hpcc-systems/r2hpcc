@@ -1,8 +1,8 @@
 Package: r2hpcc
 Type: Package
 Title: Call HPCC Ws_SQL functions from R
-Version: 1.0
-Date: 2017-02-09
+Version: 1.1
+Date: 2017-04-25
 Author: Andrey Pimanov, Balaji Sampath and Joey Chua
 Maintainer: Andrey Pimanov <andrey.pimanov@lexisnexis.com>
 Description: Wraaper to call SOAP based WsSQL from R

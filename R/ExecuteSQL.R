@@ -17,6 +17,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
 	password <- conn[4]
 	resultLimit <- if (missing(limit)) {conn[5]} else {limit}
 	debugMode <- conn[6]
+	WsSQLPort <- conn[7]
 
 	body <- ""
 	body <- paste('<?xml version="1.0" encoding="utf-8"?>
@@ -38,7 +39,7 @@ r2hpcc.ExecuteSQL <- function(conn, query, limit)
 					</soap:Body>
 					</soap:Envelope>', sep="")
 
-	txt <- r2hpcc.HTTPRequest(host, userId, password, "ExecuteSQL", body)
+	txt <- r2hpcc.HTTPRequest(host, userId, password, "ExecuteSQL", body,WsSQLPort)
 
 	if (debugMode == TRUE)
 	{
